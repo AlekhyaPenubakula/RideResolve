@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedules</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('static/images/th (2).jpeg');
+            background-size: cover;
+            background-position: center;
+            color: rgb(5, 7, 0);
+            text-align: center;
+            height: 100vh; /* Ensure the body takes full height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: flex-end; /* Align buttons to the right */
+            padding: 20px;
+            background-color: transparent;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-buttons a {
+            padding: 8px 40px;
+            background-color: transparent;
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 22px;
+        }
+
+        .nav-buttons a:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        /* Complaint button without underline */
+        .complaint-btn {
+            padding: 10px 20px;
+            background-color: red; /* Red background */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none; /* Remove the underline */
+        }
+
+        .complaint-btn:hover {
+            background-color: #c82333;
+        }
+
+        /* Center container for heading and images */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%; /* Take full height of the window */
+        }
+
+        .container h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .vehicle-options {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 20px;
+        }
+
+        .vehicle-option {
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .vehicle-option img {
+            width: 290px; /* Increased size */
+            height: 290px; /* Increased size */
+            border-radius: 10px;
+            border: 2px solid rgb(181, 249, 9);
+            transition: transform 0.3s ease;
+        }
+
+        .vehicle-option img:hover {
+            transform: scale(1.1);
+        }
+
+        .vehicle-option p {
+            font-size: 30px;
+            margin-top: 10px;
+        }
+
+        /* Table and buttons */
+        .schedule-section {
+            width: 80%; /* Center the container for the table */
+            margin: auto;
+            text-align: center;
+        }
+
+        table {
+            width: 100%; /* Take full width of the container */
+            margin: 20px auto; /* Center the table */
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 2px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: red;
+            color: white;
+        }
+
+        td {
+            background-color: rgba(255, 255, 255, 0.1);
+            font-size: 22px;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .hidden-section {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="nav-buttons">
+            <a href="dashboard#home">Home</a>
+            <a href="dashboard#about-us">About Us</a>
+            <a href="dashboard#contact">Contact</a>
+            <a href="complaint" class="complaint-btn">File a Complaint</a>
+        </div>
+    </div>
+
+    <!-- Vehicle Type Selection Section -->
+    <div class="container" id="vehicle-selection">
+        <h2>Select Vehicle Type:</h2>
+        <div class="vehicle-options">
+            <div class="vehicle-option" onclick="toggleScheduleSection('bus')">
+                <img src="/static/images/th.jpeg" alt="Bus">
+                <p>Bus</p>
+            </div>
+            <div class="vehicle-option" onclick="toggleScheduleSection('train')">
+                <img src="/static/images/th (1).jpeg" alt="Train">
+                <p>Train</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Train Schedule Section -->
+    <div class="schedule-section hidden-section" id="train-schedule">
+        <h2>Train Schedules</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Section NO.</th>
+                    <th>Train Route No.</th>
+                    <th>Starting Station</th>
+                    <th>Ending Station</th>
+                    <th>In-Between Stations</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>12723</td>
+                    <td>Hyderabad Deccan (HYB)</td>
+                    <td>New Delhi (NDLS)</td>
+                    <td>Kazipet, Nagpur, Bhopal</td>
+                    <td>06:25 PM</td>
+                    <td>07:10 PM (Next Day)</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>12760</td>
+                    <td>Hyderabad Deccan (HYB)</td>
+                    <td>Pune (PUNE)</td>
+                    <td>Vikarabad, Gulbarga, Solapur</td>
+                    <td>10:00 PM</td>
+                    <td>09:30 AM (Next Day)</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>12604</td>
+                    <td>Hyderabad Deccan (HYB)</td>
+                    <td>Chennai Central (MAS)</td>
+                    <td>Mahbubnagar, Kurnool Town, Katpadi</td>
+                    <td>04:45 PM</td>
+                    <td>05:50 AM (Next Day)</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>12722</td>
+                    <td>Hyderabad Deccan (HYB)</td>
+                    <td>Mumbai CST (CSTM)</td>
+                    <td>Vikarabad, Pune, Lonavala</td>
+                    <td>09:30 PM</td>
+                    <td>01:45 PM (Next Day)</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>17018</td>
+                    <td>Hyderabad Deccan (HYB)</td>
+                    <td>Visakhapatnam (VSKP)</td>
+                    <td>Warangal, Vijayawada, Rajahmundry</td>
+                    <td>08:00 PM</td>
+                    <td>06:50 AM (Next Day)</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>12794</td>
+                    <td>Secunderabad (SC)</td>
+                    <td>Chennai Central (MAS)</td>
+                    <td>Vijayawada, Ongole, Nellore</td>
+                    <td>04:00 PM</td>
+                    <td>05:50 AM (Next Day)</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>12708</td>
+                    <td>Tirupati (TPTY)</td>
+                    <td>Secunderabad (SC)</td>
+                    <td>Renigunta, Ongole, Vijayawada</td>
+                    <td>06:30 PM</td>
+                    <td>07:30 AM (Next Day)</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>17063</td>
+                    <td>Kakinada Town (CCT)</td>
+                    <td>Secunderabad (SC)</td>
+                    <td>Rajahmundry, Vijayawada, Khammam</td>
+                    <td>08:45 PM</td>
+                    <td>07:30 AM (Next Day)</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>12765</td>
+                    <td>Secunderabad (SC)</td>
+                    <td>Amritsar (ASR)</td>
+                    <td>Kazipet, Nagpur, Bhopal, New Delhi</td>
+                    <td>04:00 PM</td>
+                    <td>04:30 AM (Third Day)</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>17603</td>
+                    <td>Kacheguda (KCG)</td>
+                    <td>Yeshvantpur (YPR)</td>
+                    <td>Mahbubnagar, Raichur, Guntakal</td>
+                    <td>04:30 PM</td>
+                    <td>06:30 AM (Next Day)</td>
+                </tr>
+                
+                
+            </tbody>
+        </table>
+        <button class="back-btn" onclick="goBack()">Back</button>
+    </div>
+
+    <!-- Bus Schedule Section -->
+    <div class="schedule-section hidden-section" id="bus-schedule">
+        <h2>Bus Schedules</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sction NO.</th>
+                    <th>Bus Route No.</th>
+                    <th>Starting Point</th>
+                    <th>Ending Point</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>301</td>
+                    <td>Hyderabad Central Bus Station</td>
+                    <td>Secunderabad</td>
+                    <td>08:00 AM</td>
+                    <td>08:45 AM</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>302</td>
+                    <td>Hyderabad Central Bus Station</td>
+                    <td>RGIA Airport</td>
+                    <td>09:00 AM</td>
+                    <td>10:00 AM</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>303</td>
+                    <td>Jubilee Bus Station</td>
+                    <td>Hitech City</td>
+                    <td>07:30 AM</td>
+                    <td>08:15 AM</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>304</td>
+                    <td>Miyapur</td>
+                    <td>Charminar</td>
+                    <td>10:30 AM</td>
+                    <td>11:30 AM</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>305</td>
+                    <td>Lingampally</td>
+                    <td>L.B. Nagar</td>
+                    <td>05:00 PM</td>
+                    <td>06:00 PM</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>306</td>
+                    <td>Kukatpally</td>
+                    <td>Nampally</td>
+                    <td>06:45 AM</td>
+                    <td>07:30 AM</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>307</td>
+                    <td>Secunderabad</td>
+                    <td>Koti</td>
+                    <td>08:30 AM</td>
+                    <td>09:00 AM</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>308</td>
+                    <td>Hitech City</td>
+                    <td>Shamshabad</td>
+                    <td>12:00 PM</td>
+                    <td>01:00 PM</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>309</td>
+                    <td>Gachibowli</td>
+                    <td>Patancheru</td>
+                    <td>03:00 PM</td>
+                    <td>04:00 PM</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>310</td>
+                    <td>Uppal</td>
+                    <td>Himayatnagar</td>
+                    <td>07:30 PM</td>
+                    <td>08:15 PM</td>
+                </tr>
+                
+            </tbody>
+        </table>
+        <button class="back-btn" onclick="goBack()">Back</button>
+    </div>
+
+    <!-- Script to Toggle Vehicle Type Section -->
+    <script>
+        function toggleScheduleSection(vehicleType) {
+            const trainSection = document.getElementById("train-schedule");
+            const busSection = document.getElementById("bus-schedule");
+            const vehicleSelection = document.getElementById("vehicle-selection");
+
+            // Hide vehicle selection and display appropriate schedule
+            vehicleSelection.style.display = "none";
+
+            if (vehicleType === "train") {
+                trainSection.style.display = "block";
+                busSection.style.display = "none";
+            } else if (vehicleType === "bus") {
+                busSection.style.display = "block";
+                trainSection.style.display = "none";
+            }
+        }
+
+        function goBack() {
+            // Show vehicle selection and hide both schedules
+            document.getElementById("vehicle-selection").style.display = "flex";
+            document.getElementById("train-schedule").style.display = "none";
+            document.getElementById("bus-schedule").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

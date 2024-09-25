@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File a Complaint</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('static/images/th (2).jpeg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: black;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px;
+            background-color: transparent;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-buttons a {
+            padding: 10px 20px;
+            background-color: transparent;
+            color: rgb(12, 0, 0);
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 22px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: transparent;
+            padding: 30px;
+            border-radius: 10px;
+            width: 40%; 
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .btn-submit {
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            width: 100px;
+            align-self: center;
+        }
+
+        .thank-you-message {
+            font-size: 38px;
+            color: rgb(1, 11, 1);
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="nav-buttons">
+            <a href="dashboard#home">Home</a>
+            <a href="dashboard#about-us">About Us</a>
+            <a href="dashboard#contact">Contact</a>
+        </div>
+    </div>
+
+    <div class="container" id="form-container">
+        <h1>File a Complaint</h1>
+        <form id="complaint-form" action="/submit_complaint" method="POST">
+            <div>
+                <label for="vehicle_type">Vehicle Type:</label>
+                <select name="vehicle_type" id="vehicle_type" required onchange="updateForm()">
+                    <option value="" selected disabled>Select Vehicle Type</option>
+                    <option value="train">Train</option>
+                    <option value="bus">Bus</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="vehicle_no">Vehicle Route No.:</label>
+                <select id="vehicle_no" name="vehicle_no" required>
+                    <option value="" selected disabled>Select Vehicle Route No.</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="query_type">Query Related To:</label>
+                <select name="query_type" id="query_type" required>
+                    <option value="" selected disabled>Select Query Type</option>
+                    <option value="timings">Timings</option>
+                    <option value="routes">Routes</option>
+                    <option value="drivers">Drivers</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="description">Complaint Description:</label>
+                <textarea id="description" name="description" rows="5" placeholder="Write your complaint here..." required></textarea>
+            </div>
+
+            <button class="btn-submit" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="thank-you-message" id="thank-you-message" style="display:none;">
+        Thank you for your query. We will check on it.
+    </div>
+
+    <script>
+        const busData = [
+            { busNo: "301" }, { busNo: "302" }, { busNo: "303" },
+            { busNo: "304" }, { busNo: "305" }, { busNo: "306" },
+            { busNo: "307" }, { busNo: "308" }, { busNo: "309" },
+            { busNo: "310" }
+        ];
+
+        const trainData = [
+            { trainNo: "12723" }, { trainNo: "12760" }, { trainNo: "12604" },
+            { trainNo: "12722" }, { trainNo: "17018" }, { trainNo: "12794" },
+            { trainNo: "12708" }, { trainNo: "17063" }, { trainNo: "12765" },
+            { trainNo: "17603" }
+        ];
+
+        function updateForm() {
+            const vehicleType = document.getElementById('vehicle_type').value;
+            const vehicleNoSelect = document.getElementById('vehicle_no');
+
+            vehicleNoSelect.innerHTML = '<option value="" selected disabled>Select Vehicle Route No.</option>';
+
+            let data = vehicleType === 'bus' ? busData : trainData;
+
+            data.forEach(item => {
+                vehicleNoSelect.innerHTML += `<option value="${vehicleType === 'bus' ? item.busNo : item.trainNo}">${vehicleType === 'bus' ? item.busNo : item.trainNo}</option>`;
+            });
+        }
+
+        document.getElementById('complaint-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('thank-you-message').style.display = 'flex';
+        });
+    </script>
+</body>
+</html>

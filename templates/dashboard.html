@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('static/images/transport.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            overflow-x: hidden;
+            color: white;
+        }
+
+        /* Top bar styling */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            padding: 10px 50px;
+            background-color: transparent;
+            z-index: 100;
+        }
+
+        /* Welcome message to be left-aligned */
+        .welcome {
+            font-size: 18px;
+            margin-left: 20px; 
+            color: rgb(232, 226, 226); 
+            font-size: 30px;
+        }
+
+        /* Navigation buttons remain right-aligned */
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-buttons button {
+            padding: 10px 70px;
+            background-color: transparent;
+            color:rgb(246, 238, 238);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 22px;
+        }
+
+        .nav-buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Section styling */
+        .section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background-color: rgba(0, 0, 0, 0.4);
+            width: 100%;
+        }
+
+        .section-content {
+            background-color: transparent;
+            padding: 40px;
+            border-radius: 10px;
+            width: 50%;
+            text-align: center;
+        }
+
+        .section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-check-schedules {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-check-schedules:hover {
+            background-color: #218838;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="welcome">
+            Welcome, {{ username }}
+        </div>
+        <div class="nav-buttons">
+            <button onclick="scrollToSection('home')">Home</button>
+            <button onclick="scrollToSection('about-us')">About Us</button>
+            <button onclick="scrollToSection('contact')">Contact</button>
+        </div>
+    </div>
+
+    <!-- Home Section -->
+    <div class="section" id="home">
+        <div class="section-content">
+            <h2>Public Transport Information</h2>
+            <p class="description">
+                Public transportation is the most convenient and eco-friendly way to travel. Our platform provides up-to-date schedules, routes, and real-time updates on bus and train services.
+            </p>
+            <button class="btn-check-schedules" onclick="location.href='/schedule'">Check Schedules</button>
+        </div>
+    </div>
+
+    <!-- About Us Section -->
+    <div class="section" id="about-us">
+        <div class="section-content">
+            <h2>About Us</h2>
+            <p class="description">
+                We are dedicated to providing accurate and real-time information on public transport services. Our goal is to make commuting easier and more efficient for everyone.
+            </p>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="section" id="contact">
+        <div class="section-content">
+            <h2>Contact Us</h2>
+            <p class="description contact-info">
+                Email: info@publictransport.com<br>
+                Phone: +123 456 7890<br>
+                Address: 123 Transport St., City, Country
+            </p>
+        </div>
+    </div>
+
+    <!-- JavaScript for Scrolling -->
+    <script>
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
